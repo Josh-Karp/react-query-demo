@@ -1,17 +1,9 @@
 import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
-import axios from "axios";
 import React from "react";
-import { useQuery } from "react-query";
-
-const fetchPokemon = async (url) => {
-  const response = await axios.get(url);
-  return response.data;
-};
+import usePokemon from "../hooks/usePokemon";
 
 function Pokemon({ url }) {
-  const { data, isLoading, isError, error } = useQuery(["pokemon", url], () =>
-    fetchPokemon(url)
-  );
+  const { data, isLoading, isError, error } = usePokemon(url);
 
   if (isLoading) {
     return <div>Loading...</div>;

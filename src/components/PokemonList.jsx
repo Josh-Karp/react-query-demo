@@ -1,7 +1,7 @@
 import { Container, Grid } from "@mui/material";
 import axios from "axios";
 import React from "react";
-import { useQuery } from "react-query";
+import usePokemonList from "../hooks/usePokemonList";
 import Pokemon from "./Pokemon";
 
 const fetchPokemonData = async () => {
@@ -12,10 +12,7 @@ const fetchPokemonData = async () => {
 };
 
 function PokemonList() {
-  const { data, isLoading, isError, error } = useQuery(
-    "pokemonData",
-    fetchPokemonData
-  );
+  const { data, isLoading, isError, error } = usePokemonList();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -28,7 +25,9 @@ function PokemonList() {
   return (
     <Container>
       <Grid container spacing={2}>
-        {data.map(({ name, url }) => <Pokemon key={name} url={url} />)}
+        {data.map(({ name, url }) => (
+          <Pokemon key={name} url={url} />
+        ))}
       </Grid>
     </Container>
   );
