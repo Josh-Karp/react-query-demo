@@ -1,9 +1,15 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import Logger from "../utils/logger";
 
 const fetchPokemon = async (url) => {
-  const response = await axios.get(url);
-  return response.data;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    Logger.error(error);
+    throw error;
+  }
 };
 
 const usePokemon = (url) => {
